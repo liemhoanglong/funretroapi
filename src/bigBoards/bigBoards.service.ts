@@ -3,25 +3,25 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { type } from 'os';
 
-import { board } from './board.model';
+import { bigBoard } from './bigBoard.model';
 
 @Injectable()
-export class boardsService {
-  private board: board[] = [];
+export class bigBoardsService {
+  private bigBoard: bigBoard[] = [];
 
-  constructor(@InjectModel('board')  private readonly boardModle: Model<board>) {}
+  constructor(@InjectModel('bigBoard')  private readonly bigBoardModle: Model<bigBoard>) {}
 
-  async insertBoard(name: string, type: number, like: number) {
-    const newBoard = new this.boardModle({name, type, like});
-    const result = await newBoard.save();
+  async insertBigBoard(name: string, date: string, authorId: string) {
+    const newBigBoard = new this.bigBoardModle({name, date, authorId});
+    const result = await newBigBoard.save();
     // console.log(result);
     return result.id as string;
   }
 
-  async getBoard() {
-    const result = await this.boardModle.find().exec();
+  async getBigBoard() {
+    const result = await this.bigBoardModle.find().exec();
     // console.log(result);
-    return result as board;
+    return result as bigBoard;
   }
 
   // getSingleProduct(productId: string) {

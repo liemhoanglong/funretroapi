@@ -8,29 +8,29 @@ import {
   Delete,
 } from '@nestjs/common';
 
-import { boardsService } from './boards.service';
+import { bigBoardsService } from './bigBoards.service';
 
-@Controller('boards')
-export class boardController {
-  constructor(private readonly boardService: boardsService) {}
+@Controller('bigBoards')
+export class bigBoardController {
+  constructor(private readonly bigBoardService: bigBoardsService) {}
 
   @Post()
-  async addBoard(
-    @Body('name') taskName: string,
-    @Body('type') taskType: number,
-    @Body('like') taskLike: number,
+  async addBigBoard(
+    @Body('name') boardName: string,
+    @Body('date') boardDate: string,
+    @Body('authorId') boardAuthorId: string,
   ) {
-    const generatedId = await this.boardService.insertBoard(
-      taskName,
-      taskType,
-      taskLike,
+    const generatedId = await this.bigBoardService.insertBigBoard(
+      boardName,
+      boardDate,
+      boardAuthorId,
     );
     return { id: generatedId };
   }
 
   @Get()
-  async getAllBoard() {
-    const result = await this.boardService.getBoard();
+  async getAllBigBoard() {
+    const result = await this.bigBoardService.getBigBoard();
     return result;
   }
 
