@@ -18,43 +18,54 @@ export class bigBoardsService {
     return result.id as string;
   }
 
-  async getBigBoard() {
+  async getAllBigBoard() {
     const result = await this.bigBoardModle.find().exec();
     // console.log(result);
-    return result as bigBoard;
+    return result as bigBoard[];
   }
 
-  // getSingleProduct(productId: string) {
-  //   const product = this.findProduct(productId)[0];
-  //   return { ...product };
-  // }
+  async getBigBoard(id: string) {
+    const result = await this.findBigBoard(id);
+    return result;
+  }
 
-  // updateProduct(productId: string, title: string, desc: string, price: number) {
-  //   const [product, index] = this.findProduct(productId);
-  //   const updatedProduct = { ...product };
-  //   if (title) {
-  //     updatedProduct.title = title;
-  //   }
-  //   if (desc) {
-  //     updatedProduct.description = desc;
-  //   }
-  //   if (price) {
-  //     updatedProduct.price = price;
-  //   }
-  //   this.products[index] = updatedProduct;
-  // }
+  async updateBigBoard(id: string, name: string, date: string, authorId: string) {
+    const updateResult = await this.findBigBoard(id);
+    if (id) {
+      updateResult.id = id;
+    }
+    if (name) {
+      updateResult.name = name;
+    }
+    if (date) {
+      updateResult.date = date;
+    }
+    if (authorId) {
+      updateResult.authorId = authorId;
+    }
+    updateResult.save();
+  }
 
-  // deleteProduct(prodId: string) {
-  //     const index = this.findProduct(prodId)[1];
-  //     this.products.splice(index, 1);
-  // }
+  async deleteBigBoard(id: string) {
+    await this.bigBoardModle.findById(id).remove().exec();
+  }
 
-  // private findProduct(id: string): [Product, number] {
-  //   const productIndex = this.products.findIndex(prod => prod.id === id);
-  //   const product = this.products[productIndex];
-  //   if (!product) {
-  //     throw new NotFoundException('Could not find product.');
-  //   }
-  //   return [product, productIndex];
-  // }
+  private async findBigBoard(id: string): Promise<bigBoard> {
+    let result;
+    try {
+      result = await this.bigBoardModle.findById(id).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find bigBoard: ' + id);
+    }
+    if (!result) {
+      throw new NotFoundException('Could not find bigBoard: ' + id);
+    }
+    return result;
+  }
 }
+
+// "_id": "5f982ac1234e3f121c3b2155",
+//         "name": "Web",
+//         "date": "27/10/2020",
+//         "authorId": "5f981b31face1e2ddb883a4c",
+//         "__v": 0

@@ -30,29 +30,30 @@ export class bigBoardController {
 
   @Get()
   async getAllBigBoard() {
-    const result = await this.bigBoardService.getBigBoard();
+    const result = await this.bigBoardService.getAllBigBoard();
     return result;
   }
 
-  // @Get(':id')
-  // getProduct(@Param('id') prodId: string) {
-  //   return this.productsService.getSingleProduct(prodId);
-  // }
+  @Get(':id')
+  async getBigBoard(@Param('id') Id: string) {
+    const result = await this.bigBoardService.getBigBoard(Id);
+    return result;
+  }
 
-  // @Patch(':id')
-  // updateProduct(
-  //   @Param('id') prodId: string,
-  //   @Body('title') prodTitle: string,
-  //   @Body('description') prodDesc: string,
-  //   @Body('price') prodPrice: number,
-  // ) {
-  //   this.productsService.updateProduct(prodId, prodTitle, prodDesc, prodPrice);
-  //   return null;
-  // }
+  @Patch(':id')
+  async updateBigBoard(
+    @Param('id') id: string,
+    @Body('name') name: string,
+    @Body('date') date: string,
+    @Body('authorId') authorId: string,
+  ) {
+    await this.bigBoardService.updateBigBoard(id, name, date, authorId);
+    return null;
+  }
 
-  // @Delete(':id')
-  // removeProduct(@Param('id') prodId: string) {
-  //     this.productsService.deleteProduct(prodId);
-  //     return null;
-  // }
+  @Delete(':id')
+  async removeProduct(@Param('id') id: string) {
+      await this.bigBoardService.deleteBigBoard(id);
+      return null;
+  }
 }
