@@ -24,6 +24,12 @@ export class boardsService {
     return result as board[];
   }
 
+  async getAllBoardByBoardId(boardId: string) {
+    const result = await this.boardModle.find({boardId: boardId}).exec();
+    // console.log(result);
+    return result as board[];
+  }
+
   async getBoard(id: string) {
     const result = await this.findBoard(id);
     return result;

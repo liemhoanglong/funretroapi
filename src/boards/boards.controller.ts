@@ -36,11 +36,17 @@ export class boardController {
     return result;
   }
 
-  @Get(':id')
-  async getProduct(@Param('id') id: string) {
-    const result = await this.boardService.getBoard(id);
+  @Get(':boardId')
+  async getAllBoardByBoardId(@Param('boardId') boardId: string) {
+    const result = await this.boardService.getAllBoardByBoardId(boardId);
     return result;
   }
+
+  // @Get(':id')
+  // async getProduct(@Param('id') id: string) {
+  //   const result = await this.boardService.getBoard(id);
+  //   return result;
+  // }
 
   @Patch(':id')
   async updateProduct(
@@ -49,7 +55,7 @@ export class boardController {
     @Body('type') type: number,
     @Body('like') like: number,
   ) {
-    this.boardService.updateBoard(id, name, type, like);
+    await this.boardService.updateBoard(id, name, type, like);
     return null;
   }
 

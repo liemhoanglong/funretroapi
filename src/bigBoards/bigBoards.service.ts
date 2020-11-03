@@ -11,7 +11,9 @@ export class bigBoardsService {
 
   constructor(@InjectModel('bigBoard')  private readonly bigBoardModle: Model<bigBoard>) {}
 
-  async insertBigBoard(name: string, date: string, authorId: string) {
+  async insertBigBoard(name: string, authorId: string) {
+    let today = new Date();
+    let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
     const newBigBoard = new this.bigBoardModle({name, date, authorId});
     const result = await newBigBoard.save();
     // console.log(result);
@@ -24,25 +26,34 @@ export class bigBoardsService {
     return result as bigBoard[];
   }
 
+  async getAllBoardByAuthorId(authorId: string) {
+    const result = await this.bigBoardModle.find({authorId: authorId}).exec();
+    // console.log(result);
+    return result as bigBoard[];
+  }
+
   async getBigBoard(id: string) {
     const result = await this.findBigBoard(id);
     return result;
   }
 
-  async updateBigBoard(id: string, name: string, date: string, authorId: string) {
+  async updateBigBoard(id: string, name: string) {
     const updateResult = await this.findBigBoard(id);
-    if (id) {
-      updateResult.id = id;
-    }
+    // if (id) {
+    //   updateResult.id = id;
+    // }
     if (name) {
       updateResult.name = name;
     }
-    if (date) {
-      updateResult.date = date;
-    }
-    if (authorId) {
-      updateResult.authorId = authorId;
-    }
+      
+    let today = new Date();
+    updateResult.date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+    // if (date) {
+    //   updateResult.date = date;
+    // }
+    // if (authorId) {
+    //   updateResult.authorId = authorId;
+    // }
     updateResult.save();
   }
 

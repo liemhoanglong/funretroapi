@@ -17,12 +17,10 @@ export class bigBoardController {
   @Post()
   async addBigBoard(
     @Body('name') boardName: string,
-    @Body('date') boardDate: string,
     @Body('authorId') boardAuthorId: string,
   ) {
     const generatedId = await this.bigBoardService.insertBigBoard(
       boardName,
-      boardDate,
       boardAuthorId,
     );
     return { id: generatedId };
@@ -34,7 +32,13 @@ export class bigBoardController {
     return result;
   }
 
-  @Get(':id')
+  @Get(':authorId')
+  async getAllBoardByAuthorId(@Param('authorId') authorId: string) {
+    const result = await this.bigBoardService.getAllBoardByAuthorId(authorId);
+    return result;
+  }
+
+  @Get(':authorId/:id')
   async getBigBoard(@Param('id') Id: string) {
     const result = await this.bigBoardService.getBigBoard(Id);
     return result;
@@ -44,10 +48,8 @@ export class bigBoardController {
   async updateBigBoard(
     @Param('id') id: string,
     @Body('name') name: string,
-    @Body('date') date: string,
-    @Body('authorId') authorId: string,
   ) {
-    await this.bigBoardService.updateBigBoard(id, name, date, authorId);
+    await this.bigBoardService.updateBigBoard(id, name);
     return null;
   }
 
