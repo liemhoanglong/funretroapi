@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { bigBoardsModule } from './bigBoards/bigBoards.module';
 import { boardsModule } from './boards/boards.module';
 import { usersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { usersModule } from './users/users.module';
     MongooseModule.forRoot(
       'mongodb+srv://user:user@cluster0.6spzr.mongodb.net/retro?retryWrites=true&w=majority'
     ),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -35,6 +35,19 @@ export class usersService {
     return result;
   }
 
+  async findOne(email: string) {
+    let result;
+    try {
+      result = await this.userModle.findOne({ email: email }).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find user: ' + email);
+    }
+    if (!result) {
+      throw new NotFoundException('Could not find user: ' + email);
+    }
+    return result;
+  }
+
   async updateUser(id:string, email: string, pass: string, fullname: string) {
     const updateResult = await this.findUser(id);
     if (email) {
@@ -71,3 +84,5 @@ export class usersService {
     return result;
   }
 }
+
+
