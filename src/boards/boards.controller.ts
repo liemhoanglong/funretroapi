@@ -43,13 +43,13 @@ export class boardController {
   }
 
   // @Get(':id')
-  // async getProduct(@Param('id') id: string) {
+  // async getBoard(@Param('id') id: string) {
   //   const result = await this.boardService.getBoard(id);
   //   return result;
   // }
 
   @Patch(':id')
-  async updateProduct(
+  async updateBoard(
     @Param('id') id: string,
     @Body('name') name: string,
     @Body('type') type: number,
@@ -60,7 +60,7 @@ export class boardController {
   }
 
   @Delete(':id')
-  async removeProduct(@Param('id') prodId: string) {
+  async removeBoard(@Param('id') prodId: string) {
       await this.boardService.deleteBoard(prodId);
       return null;
   }

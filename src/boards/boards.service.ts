@@ -1,14 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-import { type } from 'os';
 
 import { board } from './board.model';
 
 @Injectable()
 export class boardsService {
-  private board: board[] = [];
-
   constructor(@InjectModel('board')  private readonly boardModle: Model<board>) {}
 
   async insertBoard(name: string, type: number, like: number, boardId: string) {

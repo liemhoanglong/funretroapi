@@ -1,4 +1,3 @@
-import { MongooseModule } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
 export const bigBoardSchema = new mongoose.Schema({
@@ -10,6 +9,6 @@ export const bigBoardSchema = new mongoose.Schema({
 export interface bigBoard extends mongoose.Document {
   id: string;
   name: string;
-  date: String;
-  authorId: String;
+  date: string;
+  authorId: string;
 }

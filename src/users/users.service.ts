@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-import { type } from 'os';
-import { user } from './user.model';
 const bcrypt = require('bcrypt');
+
+import { user } from './user.model';
 
 @Injectable()
 export class usersService {
@@ -14,19 +14,14 @@ export class usersService {
   async insertUser(email: string, pass: string, fullname: string) {
     const newUser = new this.userModle({email, pass, fullname});
 
-    bcrypt.hash(pass, 8, function(err, hash) {
+    bcrypt.hash(pass, 8, (err, hash) => {
       newUser.pass = hash;
-      // console.log(hash)
       newUser.save();
-      // bcrypt.compare("123", newUser.pass, function(err, result) {
-      //   console.log(result)
-      // });
     });
   }
 
   async getAllUser() {
     const result = await this.userModle.find().exec();
-    // console.log(result);
     return result as user[];
   }
 
@@ -61,9 +56,6 @@ export class usersService {
         updateResult.pass = hash;
         console.log(hash)
         updateResult.save();
-        // bcrypt.compare("lan123", updateResult.pass, function(err, result) {
-        //   console.log(result)
-        // });
         return null;
       });
     }
